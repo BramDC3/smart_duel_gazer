@@ -13,5 +13,6 @@ namespace AssemblyCSharp.Assets.Code.Core.Models.Interface.ModelEventsHandler.En
         SetCardRemove,
         ActivatePlayField,
         ReturnToFaceDown,
+        Attack,
     }
 }

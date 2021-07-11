@@ -7,6 +7,7 @@ using AssemblyCSharp.Assets.Code.Core.General.Extensions;
 using AssemblyCSharp.Assets.Code.Core.DataManager.Interface;
 using AssemblyCSharp.Assets.Code.Core.Models.Impl.ModelEventsHandler;
 using AssemblyCSharp.Assets.Code.Features.SpeedDuel.PrefabManager;
+using AssemblyCSharp.Assets.Code.Core.Models.Impl.ModelComponentsManager;
 
 namespace AssemblyCSharp.Assets.Code.Features.SpeedDuel.EventHandlers
 {
@@ -82,7 +83,8 @@ namespace AssemblyCSharp.Assets.Code.Features.SpeedDuel.EventHandlers
         private void UpdatePlacementIndicatorIfNecessary()
         {
 
-#if UNITY_EDITOR
+            #region Editor
+            #if UNITY_EDITOR
 
             // Use Spacebar to place playfield if in Editor. Good for quick tests
             if (!_objectIsPlaced && Input.GetKeyDown(KeyCode.Space))
@@ -92,7 +94,8 @@ namespace AssemblyCSharp.Assets.Code.Features.SpeedDuel.EventHandlers
                 return;
             }
 
-#endif
+            #endif
+            #endregion
 
             if (_objectIsPlaced)
             {

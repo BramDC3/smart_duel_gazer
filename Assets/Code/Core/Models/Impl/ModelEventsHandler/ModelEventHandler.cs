@@ -15,6 +15,7 @@ namespace AssemblyCSharp.Assets.Code.Core.Models.Impl.ModelEventsHandler
         private event Action<string> _OnActivateModel;
         private event Action<string> _OnSummonMonster;
         private event Action<string> _OnDestroyMonster;
+        private event Action<string> _OnAttack;
 
         private event Action<string> _OnRevealSetMonster;
         private event Action<string> _OnDestroySetMonster;
@@ -58,6 +59,11 @@ namespace AssemblyCSharp.Assets.Code.Core.Models.Impl.ModelEventsHandler
         { 
             add => _OnDestroyMonster += value;
             remove => _OnDestroyMonster -= value;
+        }
+        public event Action<string> OnAttack
+        {
+            add => _OnAttack += value;
+            remove => _OnAttack -= value;
         }
         public event Action<string> OnRevealSetMonster
         {
@@ -128,42 +134,45 @@ namespace AssemblyCSharp.Assets.Code.Core.Models.Impl.ModelEventsHandler
             _OnActivateModel?.Invoke(zone);
         }
         
-        public void RaiseEventByEventName(ModelEvent eventName, string zone)
+        public void RaiseEventByEventName(ModelEvent eventName, string zoneOrMonsterID)
         {
             switch (eventName)
             {
                 case ModelEvent.SummonMonster:
-                    _OnSummonMonster?.Invoke(zone);
+                    _OnSummonMonster?.Invoke(zoneOrMonsterID);
                     break;
                 case ModelEvent.DestroyMonster:
-                    _OnDestroyMonster?.Invoke(zone);
+                    _OnDestroyMonster?.Invoke(zoneOrMonsterID);
                     break;
                 case ModelEvent.RevealSetMonster:
-                    _OnRevealSetMonster?.Invoke(zone);
+                    _OnRevealSetMonster?.Invoke(zoneOrMonsterID);
                     break;
                 case ModelEvent.DestroySetMonster:
-                    _OnDestroySetMonster?.Invoke(zone);
+                    _OnDestroySetMonster?.Invoke(zoneOrMonsterID);
                     break;
                 case ModelEvent.SpellTrapActivate:
-                    _OnSpellTrapActivate?.Invoke(zone);
+                    _OnSpellTrapActivate?.Invoke(zoneOrMonsterID);
                     break;
                 case ModelEvent.SetCardRemove:
-                    _OnSetCardRemove?.Invoke(zone);
+                    _OnSetCardRemove?.Invoke(zoneOrMonsterID);
                     break;
                 case ModelEvent.ReturnToFaceDown:
-                    _OnReturnToFaceDown?.Invoke(zone);
+                    _OnReturnToFaceDown?.Invoke(zoneOrMonsterID);
+                    break;
+                case ModelEvent.Attack:
+                    _OnAttack?.Invoke(zoneOrMonsterID);
                     break;
             }
         }
 
-        public void RaiseSummonSetCardEvent(string zone, string modelName, bool isMonster)
+        public void RaiseSummonSetCardEvent(string zoneOrMonsterID, string modelName, bool isMonster)
         {
-            _OnSummonSetCard?.Invoke(zone, modelName, isMonster);
+            _OnSummonSetCard?.Invoke(zoneOrMonsterID, modelName, isMonster);
         }
         
-        public void RaiseChangeVisibilityEvent(string zone, bool state)
+        public void RaiseChangeVisibilityEvent(string zoneOrMonsterID, bool state)
         {
-            _OnChangeMonsterVisibility?.Invoke(zone, state);
+            _OnChangeMonsterVisibility?.Invoke(zoneOrMonsterID, state);
         }
 
         public void RaiseMonsterRemovalEvent(SkinnedMeshRenderer[] renderers)

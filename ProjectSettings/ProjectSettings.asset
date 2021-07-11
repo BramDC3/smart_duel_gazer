@@ -151,7 +151,7 @@ PlayerSettings:
     iPhone: com.crowncorp.duelgazer
   buildNumber:
     Standalone: 0
-    iPhone: 30000
+    iPhone: 30001
     tvOS: 0
   overrideDefaultApplicationIdentifier: 1
   AndroidBundleVersionCode: 30000
